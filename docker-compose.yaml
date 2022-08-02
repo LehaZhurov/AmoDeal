@@ -2,7 +2,7 @@ version: '3'
 services:
   app:
       build: ./docker/app/
-      container_name: postservice_app
+      container_name: amoservice_app
       volumes:
           - ./:/usr/share/nginx/www
       working_dir: /usr/share/nginx/www
@@ -11,11 +11,11 @@ services:
       networks:
         bridge:
           aliases:
-          - postservice_app
+          - amoservice_app
 
   nginx:
       build: ./docker/nginx
-      container_name: postservice
+      container_name: amoservice
       links:
           - app
       volumes_from:
@@ -25,7 +25,7 @@ services:
       networks:
         bridge:
           aliases:
-          - postservice
+          - amoservice
  
   postgres:
     image: postgres:10.1

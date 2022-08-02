@@ -12,6 +12,7 @@ class Deal extends Model
 
     protected $fillable = [
         "id",
+        "original_id",
         "name",
         "responsibleUserId",
         "groupId",

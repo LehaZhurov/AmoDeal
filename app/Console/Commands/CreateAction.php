@@ -44,7 +44,7 @@ class {$name}Action{
      */
     public function handle(): void
     {
-        $nameModel = $this->ask('Укажите имя Модели');
+        $nameModel = $this->ask('Укажите имя Сущности или Модели');
         $name = $this->ask('Введите название Action');
         $path = "app/Action/{$nameModel}";
         if (!file_exists($path)) {
