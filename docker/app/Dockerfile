@@ -19,17 +19,6 @@ RUN apt-get install -y libpq-dev \
 RUN apt-get update --fix-missing \
     && apt-get install -y  python \
     && rm -rf /var/lib/apt/lists/*
-
-# KAFKA
-RUN git clone --depth 1 https://github.com/edenhill/librdkafka.git \
-    && ( \
-        cd librdkafka \
-        && ./configure \
-        && make \
-        && make install \
-    ) \
-    && pecl install rdkafka \
-    && echo "extension=rdkafka.so" > /usr/local/etc/php/conf.d/rdkafka.ini
 #Node JS
 RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
 RUN bash nodesource_setup.sh
@@ -42,11 +31,6 @@ RUN mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer && \
     composer self-update --preview
 RUN command -v composer
-#Java
-RUN apt update && \
-    apt-get install -y openjdk-11-jdk && \
-    apt-get install -y ant && \
-    apt-get clean;
 
 
 

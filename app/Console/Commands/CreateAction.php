@@ -46,7 +46,7 @@ class {$name}Action{
     {
         $nameModel = $this->ask('Укажите имя Модели');
         $name = $this->ask('Введите название Action');
-        $path = "app/Domain/{$nameModel}/Action";
+        $path = "app/Action/{$nameModel}";
         if (!file_exists($path)) {
             mkdir($path, 0700, true);
         }
