@@ -26,7 +26,7 @@ return new class extends Migration
             $table->int('pipelineId');
             $table->int('statusId');
             $table->int('closestTaskAt')->nullable(true);
-            $table->int('')           
+            $table->int('');           
             $table->timestamps();
         });
     }
