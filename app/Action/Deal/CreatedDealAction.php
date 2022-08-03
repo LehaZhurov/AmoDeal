@@ -4,6 +4,7 @@ namespace App\Action\Deal;
 
 use App\Models\Deal;
 use AmoCRM\Client\AmoCRMApiClient;
+use App\Action\CustomField\CreatedCustomFieldAction;
 
 class CreatedDealAction
 {
@@ -11,10 +12,10 @@ class CreatedDealAction
     public static function execute(AmoCRMApiClient $api): void
     {
         $leadModels = $api->leads()->get();
-        $createdItem = [];
+        $dealIds = [];
         foreach ($leadModels as $key => $lead) {
-            $uniqueName = Deal::where('name', $lead->name)->exists();
-            if (!$uniqueName) {
+            $uniqueDeal = Deal::query()->where('name', $lead->name);
+            if (!$uniqueDeal->exists()) {
                 $deal = new Deal();
                 $deal->original_id = $lead->id;
                 $deal->name = $lead->name;
@@ -46,6 +47,14 @@ class CreatedDealAction
                 $deal->isMerged = $lead->isMerged;
                 $deal->requestId = $lead->requestId;
                 $deal->save();
+                $dealIds[] = $deal->id;
+            }else{
+                $dealIds[] = $uniqueDeal->first()->id;
+            }
+            if ($lead->customFieldsValues != null) {
+                $fieldIds = CreatedCustomFieldAction::execute($lead->customFieldsValues);
+                $id = $dealIds[$key];
+                Deal::find($id)->customField()->sync($fieldIds);
             }
         }
     }

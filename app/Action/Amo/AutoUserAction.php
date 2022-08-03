@@ -11,7 +11,7 @@ class AutoUserAction
     {
         $clientId = "934f1b58-3fb2-4ac3-b4cb-df2880dc7edb";
         $clientSecret = "pfHi5me5wUjx0zZ1Y695hkjXh7P1PGyZjnPew3zmDHCELMzjZvOnOlfjFI3z9zbj";
-        $apiClient = new AmoCRMApiClient($clientId, $clientSecret, 'https://b32c-178-218-24-209.ngrok.io');
+        $apiClient = new AmoCRMApiClient($clientId, $clientSecret, 'https://fd80-178-218-24-209.ngrok.io');
         if (isset($data['referer'])) {
             $apiClient->setAccountBaseDomain($data['referer']);
         }
