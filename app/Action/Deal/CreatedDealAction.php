@@ -5,6 +5,7 @@ namespace App\Action\Deal;
 use App\Models\Deal;
 use AmoCRM\Client\AmoCRMApiClient;
 use App\Action\CustomField\CreatedCustomFieldAction;
+use App\Action\Company\CreatedCompanyAction;
 
 class CreatedDealAction
 {
@@ -55,6 +56,11 @@ class CreatedDealAction
                 $fieldIds = CreatedCustomFieldAction::execute($lead->customFieldsValues);
                 $id = $dealIds[$key];
                 Deal::find($id)->customField()->sync($fieldIds);
+            }
+            if($lead->company != null){
+                $companyId = CreatedCompanyAction::execute($lead->company->toArray());
+                $id = $dealIds[$key];
+                Deal::find($id)->company()->sync([$companyId]);
             }
         }
     }

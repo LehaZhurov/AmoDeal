@@ -47,4 +47,8 @@ class Deal extends Model
     {
         return $this->belongsToMany(CustomField::class);
     }
+
+    public function company(){
+        return $this->belongsToMany(Company::class);
+    }
 }
